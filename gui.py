@@ -24,7 +24,7 @@ class MetronomeApp(tk.Tk):
         self.header = None
         self.title("osu! Metronome")
         self.configure(bg="#1e1e1e")
-        self.geometry("500x350")
+        self.geometry("500x425")
         self.iconbitmap("./assets/icon/icon.ico")
         self.osu_path = None
         self.audio_file = None
