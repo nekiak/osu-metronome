@@ -49,7 +49,7 @@ def parse_general_section(file_path):
     return audio_filename
 
 
-def add_metronome_to_audio(osu_path, strong_beat_path, weak_beat_path, gain_db=0, progress_callback=None):
+def add_metronome_to_audio(osu_path, strong_beat_path, weak_beat_path, gain_db=0, music_db=0, progress_callback=None):
     timing_points = parse_timing_points(osu_path)
     audio_filename = parse_general_section(osu_path)
 
@@ -61,7 +61,7 @@ def add_metronome_to_audio(osu_path, strong_beat_path, weak_beat_path, gain_db=0
 
     create_backup(audio_path)
 
-    audio = AudioSegment.from_file(audio_path)
+    audio = AudioSegment.from_file(audio_path).apply_gain(music_db)
     primary_tick = AudioSegment.from_file(strong_beat_path).apply_gain(gain_db)
     secondary_tick = AudioSegment.from_file(weak_beat_path).apply_gain(gain_db)
 

@@ -19,6 +19,7 @@ class MetronomeApp(tk.Tk):
         self.close_program_button = None
         self.apply_button = None
         self.gain_slider = None
+        self.music_slider = None
         self.map_label = None
         self.header = None
         self.title("osu! Metronome")
@@ -28,6 +29,7 @@ class MetronomeApp(tk.Tk):
         self.osu_path = None
         self.audio_file = None
         self.gain_db = 0
+        self.music_db = 0
         self.is_editor = False
 
         self.create_widgets()
@@ -77,6 +79,27 @@ class MetronomeApp(tk.Tk):
         )
         self.gain_slider.set(self.gain_db)
         self.gain_slider.pack(pady=5)
+
+        tk.Label(
+            self,
+            text="Music Gain (dB) ↓ (higher is louder)",
+            font=("Helvetica", 10),
+            bg="#1e1e1e",
+            fg="#ffffff",
+        ).pack(pady=5)
+
+        self.music_slider = tk.Scale(
+            self,
+            from_=-10,
+            to=10,
+            orient="horizontal",
+            bg="#3e3e3e",
+            fg="#ffffff",
+            troughcolor="#555555",
+            highlightthickness=0,
+        )
+        self.music_slider.set(self.music_db)
+        self.music_slider.pack(pady=5)
 
         button_frame = tk.Frame(self, bg="#1e1e1e")
         button_frame.pack(pady=10)
@@ -165,6 +188,7 @@ class MetronomeApp(tk.Tk):
             return
 
         self.gain_db = self.gain_slider.get()
+        self.music_db = self.music_slider.get()
         audio_path = os.path.join(os.path.dirname(self.osu_path), self.audio_file)
 
         backup_path = audio_path + ".backup1"
@@ -191,6 +215,7 @@ class MetronomeApp(tk.Tk):
                     "assets/sounds/strong_beat.wav",
                     "assets/sounds/weak_beat.wav",
                     gain_db=self.gain_db,
+                    music_db=self.music_db,
                     progress_callback=progress_callback,
                 )
                 messagebox.showinfo("Success", "Metronome applied successfully!")
@@ -208,6 +233,7 @@ class MetronomeApp(tk.Tk):
                 "assets/sounds/strong_beat.wav",
                 "assets/sounds/weak_beat.wav",
                 gain_db=self.gain_slider.get(),
+                music_db=self.music_slider.get(),
                 progress_callback=self.update_progress,
             )
             messagebox.showinfo("Success", f"Metronome applied to {os.path.basename(self.osu_path)}!")
