@@ -1,11 +1,11 @@
 import os
 import threading
 import tkinter as tk
-from tkinter import ttk, messagebox
-import requests
 from time import sleep
+from tkinter import ttk, messagebox
 
-import utils
+import requests
+
 from core import add_metronome_to_audio, restore_backup, parse_general_section
 
 
@@ -164,7 +164,6 @@ class MetronomeApp(tk.Tk):
             messagebox.showerror("Error", "You must be in the editor to apply the metronome.")
             return
 
-        # Automatically restore backup if it exists
         self.gain_db = self.gain_slider.get()
         audio_path = os.path.join(os.path.dirname(self.osu_path), self.audio_file)
 

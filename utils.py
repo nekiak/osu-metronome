@@ -1,13 +1,9 @@
 import atexit
-
-import subprocess
 import os
-
-from pydub import AudioSegment
-from pydub.utils import get_prober_name
 import subprocess
-import psutil
 from os import environ, pathsep, path
+
+import psutil
 
 
 def is_tosu_running():
@@ -15,7 +11,6 @@ def is_tosu_running():
         if process.info['name'] == "tosu.exe":
             return True
     return False
-
 
 
 def start_tosu():
@@ -40,5 +35,7 @@ def kill_tosu(pid=None):
         if process.info['name'] == "tosu.exe" and (pid is None or process.info['pid'] == pid):
             process.kill()
             print("tosu.exe process terminated.")
+
+
 def set_ffmpeg():
     environ["PATH"] += pathsep + path.abspath(f"./assets/bin/ffmpeg")

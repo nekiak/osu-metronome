@@ -1,6 +1,8 @@
 import os
 import shutil
+
 from pydub import AudioSegment
+
 
 def parse_timing_points(file_path):
     timing_points = []
@@ -24,6 +26,7 @@ def parse_timing_points(file_path):
                 timing_points.append((offset, bpm, time_signature))
     return timing_points
 
+
 def parse_general_section(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         lines = file.readlines()
@@ -44,6 +47,7 @@ def parse_general_section(file_path):
     if not audio_filename:
         raise ValueError("AudioFilename not found in the [General] section.")
     return audio_filename
+
 
 def add_metronome_to_audio(osu_path, strong_beat_path, weak_beat_path, gain_db=0, progress_callback=None):
     timing_points = parse_timing_points(osu_path)
@@ -107,6 +111,7 @@ def create_backup(file_path):
         print(f"Backup created: {backup_path}")
     else:
         print(f"Backup already exists: {backup_path}")
+
 
 def restore_backup(file_path):
     backup_path = file_path + ".backup1"
