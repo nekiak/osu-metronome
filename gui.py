@@ -90,8 +90,8 @@ class MetronomeApp(tk.Tk):
 
         self.music_slider = tk.Scale(
             self,
-            from_=-10,
-            to=10,
+            from_=-50,
+            to=0,
             orient="horizontal",
             bg="#3e3e3e",
             fg="#ffffff",
